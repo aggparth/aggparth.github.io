@@ -1,32 +1,819 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
 <head>
-    <title>Parth Aggarwal</title>
-    <meta charset="UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Parth Aggarwal</title>
+<meta name="description" content="Parth Aggarwal, M.Tech student in Structural and Computational Biology at IIT Roorkee, working on deep learning for cryo-EM and cryo-ET.">
+<meta property="og:title" content="Parth Aggarwal">
+<meta property="og:description" content="Parth Aggarwal, M.Tech student in Structural and Computational Biology at IIT Roorkee, working on deep learning for cryo-EM and cryo-ET.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://aggparth.github.io/">
+<meta name="theme-color" content="#F8F4F1" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#22223B" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2322223B'/%3E%3Ctext x='16' y='22' font-family='Arial' font-weight='700' font-size='16' text-anchor='middle' fill='%23F2E9E4'%3EPA%3C/text%3E%3C/svg%3E">
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  body { margin: 0; -webkit-font-smoothing: antialiased; }
+  img { max-width: 100%; }
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+  :root {
+    --paper: #F8F4F1;
+    --panel: #F2E9E4;
+    --ink: #22223B;
+    --muted: #5F5B6E;
+    --rule: #E4D8D2;
+    --accent: #4A4E69;
+    --accent-bright: #8C7D8A;
+    --accent-soft: #E6DFE4;
+    --warm: #C9ADA7;
+    --warm-ink: #86605A;
+    --warm-soft: #EEDFDA;
+    --screen: #22223B;
+    --on-accent: #FFFFFF;
+    --sans: "Schibsted Grotesk", "Helvetica Neue", Arial, sans-serif;
+    --serif: "Source Serif 4", Georgia, "Times New Roman", serif;
+    --mono: "JetBrains Mono", ui-monospace, Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #22223B; --panel: #2C2D48; --ink: #F2E9E4; --muted: #B4AAB3;
+      --rule: #3E405C; --accent: #C9ADA7; --accent-bright: #C9ADA7; --accent-soft: #393A57;
+      --warm: #9A8C98; --warm-ink: #DCCFD9; --warm-soft: #363350; --screen: #17172B; --on-accent: #22223B;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #22223B; --panel: #2C2D48; --ink: #F2E9E4; --muted: #B4AAB3;
+    --rule: #3E405C; --accent: #C9ADA7; --accent-bright: #C9ADA7; --accent-soft: #393A57;
+    --warm: #9A8C98; --warm-ink: #DCCFD9; --warm-soft: #363350; --screen: #17172B; --on-accent: #22223B;
+    color-scheme: dark;
+  }
+
+  [hidden] { display: none !important; }
+  html { scroll-behavior: smooth; }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--serif);
+    font-size: 17px;
+    line-height: 1.6;
+    padding: 0 20px;
+    transition: background-color .25s, color .25s;
+  }
+  .wrap { max-width: 1040px; margin: 0 auto; }
+
+  a { color: var(--accent); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+  a:hover { text-decoration-thickness: 2px; }
+  a:focus-visible, button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 2px; }
+
+  /* top bar */
+  .bar {
+    position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5;
+    background: color-mix(in srgb, var(--paper) 86%, transparent);
+    backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--rule);
+    margin: 0 -20px; padding: 0 20px;
+  }
+  .bar .wrap { display: flex; align-items: center; gap: 16px; height: 52px; }
+  .bar .mark { font-family: var(--sans); font-weight: 700; font-size: 15px; color: var(--ink); text-decoration: none; letter-spacing: -0.01em; white-space: nowrap; }
+  .bar nav { display: flex; gap: 18px; margin-left: auto; overflow-x: auto; scrollbar-width: none; }
+  .bar nav::-webkit-scrollbar { display: none; }
+  .bar nav a { font-family: var(--mono); font-size: 12.5px; color: var(--muted); text-decoration: none; white-space: nowrap; padding: 4px 0; }
+  .bar nav a:hover, .bar nav a.on { color: var(--accent); }
+  .theme {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-family: var(--mono); font-size: 12px; color: var(--ink);
+    background: var(--panel); border: 1px solid var(--rule); border-radius: 999px;
+    padding: 4px 11px; cursor: pointer; white-space: nowrap; flex-shrink: 0;
+  }
+  .theme:hover { border-color: var(--accent); }
+  .theme svg { width: 13px; height: 13px; }
+
+  /* hero */
+  .hero {
+    display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 48px; align-items: center;
+    padding-block: 60px 24px;
+  }
+  .hero h1 {
+    font-family: var(--sans); font-weight: 700;
+    font-size: clamp(42px, 6.4vw, 70px); line-height: 0.98; letter-spacing: -0.03em;
+    margin: 0;
+  }
+  .hero h1 span { color: var(--accent-bright); }
+  .lede { font-size: 19px; line-height: 1.5; margin: 18px 0 0; max-width: 36ch; text-wrap: pretty; }
+  .contact { display: grid; gap: 6px; margin-top: 24px; font-family: var(--mono); font-size: 13.5px; }
+  .contact .row { display: flex; flex-wrap: wrap; gap: 6px 20px; align-items: center; }
+  .copy {
+    font: inherit; font-size: 11.5px; color: var(--muted); background: none;
+    border: 1px solid var(--rule); border-radius: 4px; padding: 1px 7px; cursor: pointer;
+  }
+  .copy:hover { color: var(--ink); border-color: var(--muted); }
+  .status {
+    display: inline-flex; align-items: center; gap: 9px; margin-top: 24px;
+    font-family: var(--sans); font-size: 14px; font-weight: 500;
+    background: var(--warm-soft); color: var(--ink); padding: 6px 13px; border-radius: 999px;
+  }
+  .status::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--warm); box-shadow: 0 0 0 3px color-mix(in srgb, var(--warm) 30%, transparent); }
+
+  /* alignment demo */
+  .lab { background: var(--panel); border: 1px solid var(--rule); border-radius: 8px; padding: 16px; margin: 0; }
+  .lab-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; margin-bottom: 12px; }
+  .lab-head b { font-family: var(--sans); font-weight: 600; font-size: 15px; }
+  .lab-head span { font-family: var(--mono); font-size: 11.5px; color: var(--muted); font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .lab-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .cap { font-family: var(--mono); font-size: 10.5px; color: var(--muted); text-transform: uppercase; letter-spacing: .07em; margin-bottom: 6px; display: flex; justify-content: space-between; gap: 8px; }
+  .particles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 3px; }
+  .particles canvas { width: 100%; aspect-ratio: 1; max-width: 100%; display: block; image-rendering: pixelated; border-radius: 2px; background: #999; }
+  #avg { width: 100%; aspect-ratio: 1; max-width: 100%; display: block; border-radius: 3px; image-rendering: auto; background: var(--screen); }
+  .lab-row { display: grid; grid-template-columns: auto 1fr; gap: 16px; align-items: stretch; margin-top: 14px; }
+  #cover { width: 92px; height: 92px; display: block; }
+  #score { width: 100%; height: 92px; display: block; }
+  .actions { display: flex; gap: 8px; margin-top: 14px; flex-wrap: wrap; align-items: center; }
+  .btn {
+    font-family: var(--sans); font-weight: 600; font-size: 13.5px;
+    border-radius: 5px; padding: 7px 13px; cursor: pointer; border: 1px solid transparent;
+  }
+  .btn.primary { color: var(--on-accent); background: var(--accent); }
+  .btn.primary:hover { filter: brightness(1.08); }
+  .btn.ghost { color: var(--ink); background: none; border-color: var(--rule); }
+  .btn.ghost:hover { border-color: var(--muted); }
+  .btn:disabled { opacity: .55; cursor: default; }
+  .lab-note { font-family: var(--sans); font-size: 13px; color: var(--muted); margin: 12px 0 0; line-height: 1.5; }
+
+  /* sections */
+  section {
+    display: grid; grid-template-columns: 170px 1fr; gap: 0 40px;
+    padding-top: 28px; margin-top: 56px; border-top: 1px solid var(--rule);
+    scroll-margin-top: 70px;
+  }
+  section > h2 {
+    font-family: var(--mono); font-weight: 500; font-size: 12.5px;
+    text-transform: uppercase; letter-spacing: 0.08em; color: var(--accent);
+    margin: 5px 0 0;
+  }
+  .body { min-width: 0; }
+  .body > p { margin: 0 0 14px; max-width: 64ch; }
+  .body > p:last-child { margin-bottom: 0; }
+
+  .entries { list-style: none; margin: 0; padding: 0; display: grid; gap: 30px; }
+  .entry h3 { font-family: var(--sans); font-weight: 600; font-size: 19px; margin: 0; line-height: 1.3; text-wrap: balance; }
+  .meta { font-family: var(--mono); font-size: 12.5px; color: var(--muted); margin-top: 4px; font-variant-numeric: tabular-nums; }
+  .entry p { margin: 8px 0 0; max-width: 64ch; }
+  .pill { display: inline-block; font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: .06em; color: var(--warm-ink); background: var(--warm-soft); border-radius: 3px; padding: 1px 6px; margin-left: 8px; vertical-align: 2px; }
+
+  /* projects */
+  .projects { display: grid; gap: 14px; }
+  .project {
+    display: block; text-decoration: none; color: inherit;
+    border: 1px solid var(--rule); border-radius: 8px; padding: 18px 20px;
+    transition: border-color .2s, background-color .2s;
+  }
+  .project:hover { border-color: var(--accent); background: var(--panel); }
+  .project:hover h3 .arrow { transform: translate(3px, -3px); }
+  .project h3 { font-family: var(--sans); font-weight: 600; font-size: 18px; margin: 0; display: flex; justify-content: space-between; gap: 12px; }
+  .project h3 .arrow { color: var(--accent); transition: transform .2s; flex-shrink: 0; }
+  .project p { margin: 8px 0 0; max-width: 64ch; }
+  .stat { display: flex; gap: 28px; flex-wrap: wrap; margin-top: 14px; }
+  .stat div { display: grid; }
+  .stat b { font-family: var(--sans); font-weight: 700; font-size: 24px; line-height: 1.1; font-variant-numeric: tabular-nums; color: var(--accent); }
+  .stat span { font-family: var(--mono); font-size: 11.5px; color: var(--muted); }
+
+  .subhead { font-family: var(--mono); font-size: 12px; color: var(--muted); margin: 0 0 10px; }
+  .chips { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+  .chips li { font-family: var(--sans); font-size: 15px; background: var(--panel); border: 1px solid var(--rule); border-radius: 5px; padding: 4px 11px; }
+
+  .facts { margin: 0; display: grid; grid-template-columns: max-content 1fr; gap: 12px 24px; }
+  .facts dt { font-family: var(--mono); font-size: 13px; color: var(--muted); padding-top: 3px; font-variant-numeric: tabular-nums; }
+  .facts dd { margin: 0; max-width: 60ch; }
+  .facts dd small { display: block; font-family: var(--mono); font-size: 12px; color: var(--muted); }
+
+  .skills { margin: 0; display: grid; grid-template-columns: max-content 1fr; gap: 8px 24px; font-size: 16px; }
+  .skills dt { font-family: var(--mono); font-size: 12.5px; color: var(--muted); padding-top: 3px; }
+  .skills dd { margin: 0; }
+
+  .beyond { display: grid; grid-template-columns: 1fr; gap: 14px; margin-top: 20px; }
+  .interest { background: var(--panel); border-radius: 8px; padding: 18px 20px; display: flex; flex-direction: column; }
+  .interest .cap { margin-bottom: 12px; }
+  .topics { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px 22px; }
+  .topics li { font-family: var(--sans); font-weight: 600; font-size: 26px; letter-spacing: -0.02em; line-height: 1.25; display: flex; align-items: center; gap: 10px; }
+  .topics li::before { content: ""; width: 9px; height: 9px; border-radius: 50%; background: var(--accent-bright); }
+  .topics li:nth-child(even)::before { background: var(--warm); }
+  .interest p { margin: 14px 0 0; font-size: 15.5px; color: var(--muted); line-height: 1.5; }
+  .interest .question { font-family: var(--serif); font-style: italic; font-size: 17px; color: var(--ink); border-left: 2px solid var(--warm); padding-left: 12px; margin-top: 16px; }
+  .interest .figure span { display: block; font-family: var(--mono); font-size: 10.5px; text-transform: uppercase; letter-spacing: .07em; color: var(--muted); margin-bottom: 2px; }
+  .interest .big { font-family: var(--sans); font-weight: 600; font-size: 26px; letter-spacing: -0.02em; line-height: 1.25; }
+  .art-head { display: flex; justify-content: space-between; align-items: baseline; gap: 8px 20px; flex-wrap: wrap; }
+  .art-head p { margin: 0; }
+  .gallery { display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; margin-top: 16px; }
+  .art { padding: 0; border: 0; background: var(--rule); border-radius: 5px; overflow: hidden; cursor: zoom-in; aspect-ratio: 3 / 4; display: block; width: 100%; }
+  .art img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .35s ease; }
+  .art:hover img { transform: scale(1.05); }
+  @media (prefers-reduced-motion: reduce) { .art img { transition: none; } }
+  .viewer { position: fixed; inset: 0; z-index: 20; background: rgba(24, 24, 44, .95); display: flex; align-items: center; justify-content: center; padding: calc(env(safe-area-inset-top, 0px) + 56px) 16px calc(env(safe-area-inset-bottom, 0px) + 56px); }
+  .viewer img { max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 4px; box-shadow: 0 20px 60px rgba(0,0,0,.5); }
+  .viewer button { position: absolute; font-family: var(--mono); font-size: 13px; color: #F2E9E4; background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.2); border-radius: 999px; padding: 6px 14px; cursor: pointer; }
+  .viewer button:hover { background: rgba(255,255,255,.16); }
+  .viewer .close { top: calc(env(safe-area-inset-top, 0px) + 14px); right: 16px; }
+  .viewer .prev { bottom: calc(env(safe-area-inset-bottom, 0px) + 14px); left: 50%; transform: translateX(calc(-100% - 6px)); }
+  .viewer .next { bottom: calc(env(safe-area-inset-bottom, 0px) + 14px); left: 50%; transform: translateX(6px); }
+  .viewer .count { position: absolute; top: calc(env(safe-area-inset-top, 0px) + 20px); left: 16px; font-family: var(--mono); font-size: 12px; color: #B4AAB3; }
+
+  footer {
+    margin-top: 72px; padding-block: 24px 40px; border-top: 1px solid var(--rule);
+    font-family: var(--mono); font-size: 12px; color: var(--muted);
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px;
+  }
+
+  @media (max-width: 860px) {
+    .hero { grid-template-columns: 1fr; gap: 32px; padding-block: 40px 8px; }
+    .lede { max-width: 46ch; }
+  }
+  @media (max-width: 640px) {
+    body { font-size: 16px; }
+    section { grid-template-columns: 1fr; gap: 14px; margin-top: 40px; padding-top: 22px; }
+    .facts, .skills { grid-template-columns: 1fr; gap: 2px; }
+    .facts dd, .skills dd { margin-bottom: 10px; }
+    .bar .mark { display: none; }
+    .bar nav { margin-left: 0; }
+    .gallery { grid-template-columns: repeat(3, 1fr); }
+  }
+  @media (max-width: 460px) {
+    .lab-grid { grid-template-columns: 1fr; }
+    .lab-row { grid-template-columns: 1fr; }
+    #cover { margin: 0 auto; }
+  }
+</style>
 </head>
-<body style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 800px; margin: auto; padding: 40px; line-height: 1.6;">
+<body>
 
-    <h1>Parth Aggarwal</h1>
+<div class="bar">
+  <div class="wrap">
+    <a class="mark" href="#top">Parth Aggarwal</a>
+    <nav aria-label="Sections">
+      <a href="#research">Research</a>
+      <a href="#projects">Projects</a>
+      <a href="#education">Education</a>
+      <a href="#beyond">Beyond the lab</a>
+      <a href="cv.pdf" target="_blank" rel="noopener">CV</a>
+    </nav>
+    <button class="theme" id="theme" type="button">Dark mode</button>
+  </div>
+</div>
 
-    <p>
-    Postgraduate student at IIT Roorkee interested in computational biology,
-    bioinformatics, and quantitative research.
-    </p>
+<main class="wrap" id="top">
+  <div class="hero">
+    <div>
+      <h1>Parth<br><span>Aggarwal</span></h1>
+      <p class="lede">I build deep learning methods that recover 3D molecular structure from cryo-electron microscopy and cryo-electron tomography data. M.Tech student in Structural &amp; Computational Biology at IIT Roorkee.</p>
+      <div class="contact">
+        <div class="row">
+          <span id="email">parth_a@bt.iitr.ac.in</span>
+          <button class="copy" id="copy" type="button">copy</button>
+        </div>
+        <div class="row">
+          <a href="https://github.com/aggparth" target="_blank" rel="noopener">github.com/aggparth</a>
+          <a href="cv.pdf" target="_blank" rel="noopener">CV (pdf)</a>
+        </div>
+      </div>
+      <div class="status">Looking for PhD positions in computational biology, starting 2027</div>
+    </div>
 
-    <h2>Research Interests</h2>
-    <ul>
-        <li>Protein modeling</li>
-        <li>Machine Learning</li>
-        <li>Statistical genomics</li>
-        <li>Computational Biology</li>
+    <figure class="lab" aria-label="Interactive demo of reference-free particle alignment">
+      <div class="lab-head"><b>Align sixteen noisy particles</b><span id="iter">iteration 0</span></div>
+      <div class="lab-grid">
+        <div>
+          <div class="cap"><span>Particles</span><span>unknown angles</span></div>
+          <div class="particles" id="particles"></div>
+        </div>
+        <div>
+          <div class="cap"><span>Their average</span></div>
+          <canvas id="avg" width="192" height="192" aria-label="Average of the aligned particles"></canvas>
+        </div>
+      </div>
+      <div class="lab-row">
+        <div>
+          <div class="cap"><span>Coverage</span></div>
+          <canvas id="cover" width="184" height="184" aria-label="Fourier coverage of the particle set"></canvas>
+        </div>
+        <div>
+          <div class="cap"><span>Angle error</span><span id="scoreval">–</span></div>
+          <canvas id="score" aria-label="Angle error over iterations"></canvas>
+        </div>
+      </div>
+      <div class="actions">
+        <button class="btn primary" id="run" type="button">Align</button>
+        <button class="btn ghost" id="shuffle" type="button">New particles</button>
+      </div>
+      <p class="lab-note">A 2D toy version of my thesis problem. Each particle is the same molecule at an unknown angle, and each is missing the same wedge of information, shown as the gap in the coverage circle. With no template to compare against, gradient ascent rotates every particle to agree with the others. As they line up, the average sharpens and their different angles fill in the missing wedge.</p>
+    </figure>
+  </div>
+
+  <section id="about">
+    <h2>About</h2>
+    <div class="body">
+      <p>I'm a master's student in the Department of Biosciences and Bioengineering at IIT Roorkee, working in the <a href="https://www.jitinsingla.in/" target="_blank" rel="noopener">Singla Lab</a> with Prof. Jitin Singla. I came to computation from a biotechnology degree, and my work sits between the two.</p>
+      <p>My main interests are cryo-EM and cryo-ET, deep learning for structural biology, and implicit neural representations, where a neural network itself stores a 3D density map. I'm particularly drawn to using them for heterogeneous reconstruction, alignment and pose estimation.</p>
+    </div>
+  </section>
+
+  <section id="research">
+    <h2>Research</h2>
+    <ul class="entries body">
+      <li class="entry">
+        <h3>Reference-free subtomogram alignment</h3>
+        <div class="meta">M.Tech thesis · Singla Lab · June 2026 – present</div>
+        <p>In cryo-electron tomography, copies of a molecule are cut out of a 3D reconstruction of the cell as small subvolumes (subtomograms). Each copy sits at an unknown orientation, and part of its information is missing because of how the sample is tilted in the microscope (the "missing wedge"). I'm developing a method that aligns all the particles together, with no starting template, by gradient ascent on SFSC, a spectral signal-to-noise score that accounts for the missing wedge.</p>
+      </li>
+      <li class="entry">
+        <h3>Deep learning methods in cryo-EM and cryo-ET: a survey <span class="pill">first author</span></h3>
+        <div class="meta">Aggarwal, P., Singla, J. · in preparation</div>
+        <p>A comprehensive survey of deep learning across the cryo-EM and cryo-ET pipelines, including implicit neural representation architectures and activation functions and the CryoDRGN line of methods for heterogeneous reconstruction.</p>
+      </li>
+      <li class="entry">
+        <h3>Review of AI and nanotechnology for microbiome engineering</h3>
+        <div class="meta">B.Tech thesis · DTU · Aug 2024 – May 2025 · supervised by Dr. Prakash Chandra</div>
+        <p>A survey of machine learning and nanotechnology in microbiome engineering, from predictive models of microbial interactions to nanodevice-based interventions.</p>
+      </li>
     </ul>
+  </section>
 
+  <section id="projects">
     <h2>Projects</h2>
-    <p>Project details coming soon.</p>
+    <div class="projects body">
+      <a class="project" href="https://github.com/aggparth/cryoET-Heterogeneity" target="_blank" rel="noopener">
+        <h3><span>cryoET-Heterogeneity</span><span class="arrow" aria-hidden="true">↗</span></h3>
+        <div class="meta">Python package · Sep 2026</div>
+        <p>An analysis layer on top of CryoDRGN-ET latent spaces: clustering across K with three quality metrics, representative states taken as real particles rather than averages, trajectory analysis and null-model tests. On a real dataset, the latent space shows clear structure compared with a matched random baseline, but no single number of states is supported: four criteria give four answers.</p>
+        <div class="stat">
+          <div><b>4,549</b><span>particles analysed</span></div>
+          <div><b>26.5–77.1σ</b><span>above the null</span></div>
+          <div><b>51</b><span>unit tests</span></div>
+        </div>
+      </a>
+      <a class="project" href="https://github.com/aggparth" target="_blank" rel="noopener">
+        <h3><span>cfDNA V-plot generator</span><span class="arrow" aria-hidden="true">↗</span></h3>
+        <div class="meta">Python, R · Nov 2025</div>
+        <p>Bins cell-free DNA fragments by distance from a motif centre and by fragment length, and draws the resulting V-plot heatmap.</p>
+      </a>
+      <a class="project" href="https://github.com/aggparth" target="_blank" rel="noopener">
+        <h3><span>TCGA RNA-seq expression analysis</span><span class="arrow" aria-hidden="true">↗</span></h3>
+        <div class="meta">Bash, R · Nov 2025</div>
+        <p>Pulls NKX2-1 expression across a TCGA cohort from GDC files and compares primary tumour with normal tissue.</p>
+      </a>
+    </div>
+  </section>
 
-    <h2>Contact</h2>
-    <p>Email: parthaggarwal0803@gmail.com</p>
-    <p>GitHub: <a href="https://github.com/aggparth">github.com/aggparth</a></p>
+  <section id="education">
+    <h2>Education</h2>
+    <ul class="entries body">
+      <li class="entry">
+        <h3>M.Tech, Structural and Computational Biology</h3>
+        <div class="meta"><a href="https://www.iitr.ac.in/" target="_blank" rel="noopener">Indian Institute of Technology Roorkee</a> · 2025 – 2027 (expected May 2027) · CGPA 9.23/10</div>
+      </li>
+      <li class="entry">
+        <h3>B.Tech, Biotechnology</h3>
+        <div class="meta"><a href="https://dtu.ac.in/" target="_blank" rel="noopener">Delhi Technological University</a> · 2021 – 2025 · CGPA 8.10/10</div>
+      </li>
+    </ul>
+  </section>
+
+  <section id="coursework">
+    <h2>Coursework</h2>
+    <div class="body">
+      <p class="subhead">M.Tech, IIT Roorkee</p>
+      <ul class="chips">
+        <li>Machine Learning Essentials</li>
+        <li>Computational Biology</li>
+        <li>Structural Biology</li>
+        <li>Protein Design and Engineering</li>
+        <li>Biomolecular Interactions and Drug Design</li>
+        <li>Bioanalytical Techniques</li>
+        <li>Computer Programming</li>
+      </ul>
+    </div>
+  </section>
+
+  <section id="honours">
+    <h2>Honours</h2>
+    <dl class="facts body">
+      <dt>2025</dt><dd>GATE Biotechnology, All India Rank 124<small>of 20,048 candidates · top 0.62%</small></dd>
+      <dt>2024</dt><dd>GATE Biotechnology, All India Rank 327<small>of 17,078 candidates · top 1.91%</small></dd>
+      <dt>2025 – 27</dt><dd>MHRD Scholarship, Government of India, for M.Tech study at IIT Roorkee</dd>
+    </dl>
+  </section>
+
+  <section id="skills">
+    <h2>Skills</h2>
+    <dl class="skills body">
+      <dt>Programming</dt><dd>Python, R, C, JavaScript, Bash</dd>
+      <dt>Machine learning</dt><dd>PyTorch, scikit-learn, NumPy, SciPy, UMAP</dd>
+      <dt>Structural biology</dt><dd>CryoDRGN / CryoDRGN-ET, Schrödinger, CCP4</dd>
+      <dt>Tools</dt><dd>Linux, Git, pytest, pandas, matplotlib, ggplot2</dd>
+    </dl>
+  </section>
+
+  <section id="beyond">
+    <h2>Beyond the lab</h2>
+    <div class="body">
+      <p>I like having a broad base of knowledge, with depth in a few places. Outside research, most of my curiosity goes to the humanities, through books and documentaries.</p>
+      <div class="beyond">
+        <div class="interest">
+          <div class="cap"><span>Reading and documentaries</span></div>
+          <ul class="topics">
+            <li>Philosophy</li>
+            <li>Indian history</li>
+            <li>The Renaissance</li>
+            <li>Indian culture</li>
+          </ul>
+          <p class="question">A question I keep coming back to: how can old traditions shape a modern future, and what should a tradition change as the world moves on?</p>
+          <p class="figure"><span>Favourite figure</span>Leonardo da Vinci, the Renaissance polymath who moved freely between painting, anatomy and engineering.</p>
+        </div>
+        <div class="interest">
+          <div class="cap"><span>Making</span><span>click to enlarge</span></div>
+          <div class="art-head">
+            <div class="big">Digital art</div>
+            <p>Edits and composites I've made in Photoshop, mostly in a retro, dreamlike palette.</p>
+          </div>
+          <div class="gallery" id="gallery">
+            <button class="art" type="button" data-full="art/blossom.jpg" data-alt="A street corner under cherry blossoms, graded in soft pink and violet"><img src="art/blossom-thumb.jpg" alt="A street corner under cherry blossoms, graded in soft pink and violet" loading="lazy"></button>
+            <button class="art" type="button" data-full="art/crossing.jpg" data-alt="A city intersection seen from above, graded in magenta and deep purple"><img src="art/crossing-thumb.jpg" alt="A city intersection seen from above, graded in magenta and deep purple" loading="lazy"></button>
+            <button class="art" type="button" data-full="art/stairs.jpg" data-alt="Red railings leading down a stairway into a sunlit street, in saturated blues"><img src="art/stairs-thumb.jpg" alt="Red railings leading down a stairway into a sunlit street, in saturated blues" loading="lazy"></button>
+            <button class="art" type="button" data-full="art/neon.jpg" data-alt="A shuttered shopfront under a pink neon Korean sign"><img src="art/neon-thumb.jpg" alt="A shuttered shopfront under a pink neon Korean sign" loading="lazy"></button>
+            <button class="art" type="button" data-full="art/moonrise.jpg" data-alt="A full moon over a winding river valley, seen from a mossy cliff"><img src="art/moonrise-thumb.jpg" alt="A full moon over a winding river valley, seen from a mossy cliff" loading="lazy"></button>
+            <button class="art" type="button" data-full="art/red-sun.jpg" data-alt="A red sun over a city skyline washed in electric blue"><img src="art/red-sun-thumb.jpg" alt="A red sun over a city skyline washed in electric blue" loading="lazy"></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="viewer" id="viewer" role="dialog" aria-modal="true" aria-label="Artwork" hidden>
+    <span class="count" id="vcount"></span>
+    <img id="vimg" alt="">
+    <button class="close" id="vclose" type="button">Close ✕</button>
+    <button class="prev" id="vprev" type="button">← Prev</button>
+    <button class="next" id="vnext" type="button">Next →</button>
+  </div>
+
+  <footer>
+    <span>Parth Aggarwal · IIT Roorkee, India</span>
+    <span>Last updated September 2026</span>
+  </footer>
+</main>
+
+<script>
+/* ---------- theme: start from the system setting, button flips it ---------- */
+(function () {
+  const btn = document.getElementById('theme');
+  const root = document.documentElement;
+  const sys = matchMedia('(prefers-color-scheme: dark)');
+  let chosen = null; // null = follow the system
+  const moon = '<svg viewBox="0 0 16 16" aria-hidden="true"><path d="M13.5 10.2A6 6 0 0 1 5.8 2.5a6 6 0 1 0 7.7 7.7z" fill="currentColor"/></svg>';
+  const sun = '<svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="3.2" fill="currentColor"/><g stroke="currentColor" stroke-width="1.4" stroke-linecap="round"><path d="M8 1v1.6M8 13.4V15M1 8h1.6M13.4 8H15M3 3l1.1 1.1M11.9 11.9 13 13M3 13l1.1-1.1M11.9 4.1 13 3"/></g></svg>';
+  const isDark = () => chosen ? chosen === 'dark' : sys.matches;
+  function apply() {
+    if (chosen) root.setAttribute('data-theme', chosen); else root.removeAttribute('data-theme');
+    btn.innerHTML = isDark() ? sun + 'Light mode' : moon + 'Dark mode';
+    document.dispatchEvent(new Event('themechange'));
+  }
+  btn.addEventListener('click', () => { chosen = isDark() ? 'light' : 'dark'; apply(); });
+  sys.addEventListener('change', () => { if (!chosen) apply(); });
+  apply();
+})();
+
+/* ---------- copy email ---------- */
+(function () {
+  const btn = document.getElementById('copy');
+  const text = document.getElementById('email');
+  btn.addEventListener('click', () => {
+    const done = () => { btn.textContent = 'copied'; setTimeout(() => btn.textContent = 'copy', 1600); };
+    const fallback = () => {
+      const r = document.createRange(); r.selectNodeContents(text);
+      const s = getSelection(); s.removeAllRanges(); s.addRange(r);
+      btn.textContent = 'press Ctrl+C';
+      setTimeout(() => btn.textContent = 'copy', 2200);
+    };
+    try { navigator.clipboard.writeText(text.textContent).then(done, fallback); } catch (e) { fallback(); }
+  });
+})();
+
+/* ---------- artwork viewer ---------- */
+(function () {
+  const items = [...document.querySelectorAll('#gallery .art')];
+  const viewer = document.getElementById('viewer'), img = document.getElementById('vimg'), count = document.getElementById('vcount');
+  let at = 0, opener = null;
+  function show(i) {
+    at = (i + items.length) % items.length;
+    img.src = items[at].dataset.full; img.alt = items[at].dataset.alt;
+    count.textContent = (at + 1) + ' / ' + items.length;
+  }
+  function open(i) { opener = items[i]; show(i); viewer.hidden = false; document.body.style.overflow = 'hidden'; document.getElementById('vclose').focus(); }
+  function close() { viewer.hidden = true; document.body.style.overflow = ''; if (opener) opener.focus(); }
+  items.forEach((b, i) => b.addEventListener('click', () => open(i)));
+  document.getElementById('vclose').addEventListener('click', close);
+  document.getElementById('vprev').addEventListener('click', () => show(at - 1));
+  document.getElementById('vnext').addEventListener('click', () => show(at + 1));
+  viewer.addEventListener('click', e => { if (e.target === viewer) close(); });
+  document.addEventListener('keydown', e => {
+    if (viewer.hidden) return;
+    if (e.key === 'Escape') close();
+    else if (e.key === 'ArrowLeft') show(at - 1);
+    else if (e.key === 'ArrowRight') show(at + 1);
+  });
+})();
+
+/* ---------- highlight current section in the top bar ---------- */
+(function () {
+  const links = [...document.querySelectorAll('.bar nav a[href^="#"]')];
+  const map = new Map(links.map(a => [a.getAttribute('href').slice(1), a]));
+  if (!('IntersectionObserver' in window)) return;
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting && map.has(e.target.id)) {
+        links.forEach(a => a.classList.remove('on'));
+        map.get(e.target.id).classList.add('on');
+      }
+    });
+  }, { rootMargin: '-40% 0px -55% 0px' });
+  map.forEach((_, id) => { const el = document.getElementById(id); if (el) io.observe(el); });
+})();
+
+/* ---------- alignment demo ---------- */
+(function () {
+  const N = 64, M = 32, P = 16, SPREAD = 50 * Math.PI / 180, KEEP = 60; // wedge: tilt range ±60°
+  let seed = 7;
+  const rand = () => (seed = (seed * 16807) % 2147483647) / 2147483647;
+  const gauss = () => Math.sqrt(-2 * Math.log(rand() + 1e-9)) * Math.cos(2 * Math.PI * rand());
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // --- small FFT helpers ---
+  function fft1(re, im, inv) {
+    const n = re.length;
+    for (let i = 1, j = 0; i < n; i++) { let bit = n >> 1; for (; j & bit; bit >>= 1) j ^= bit; j ^= bit;
+      if (i < j) { let t = re[i]; re[i] = re[j]; re[j] = t; t = im[i]; im[i] = im[j]; im[j] = t; } }
+    for (let len = 2; len <= n; len <<= 1) {
+      const a = (inv ? 2 : -2) * Math.PI / len, wr = Math.cos(a), wi = Math.sin(a);
+      for (let i = 0; i < n; i += len) { let cr = 1, ci = 0;
+        for (let k = 0; k < len / 2; k++) {
+          const p = i + k, q = p + len / 2, vr = re[q] * cr - im[q] * ci, vi = re[q] * ci + im[q] * cr;
+          re[q] = re[p] - vr; im[q] = im[p] - vi; re[p] += vr; im[p] += vi;
+          const t = cr * wr - ci * wi; ci = cr * wi + ci * wr; cr = t; } } }
+    if (inv) for (let i = 0; i < n; i++) { re[i] /= n; im[i] /= n; }
+  }
+  function fft2(re, im, n, inv) {
+    const rr = new Float64Array(n), ri = new Float64Array(n);
+    for (let y = 0; y < n; y++) { for (let x = 0; x < n; x++) { rr[x] = re[y * n + x]; ri[x] = im[y * n + x]; } fft1(rr, ri, inv); for (let x = 0; x < n; x++) { re[y * n + x] = rr[x]; im[y * n + x] = ri[x]; } }
+    for (let x = 0; x < n; x++) { for (let y = 0; y < n; y++) { rr[y] = re[y * n + x]; ri[y] = im[y * n + x]; } fft1(rr, ri, inv); for (let y = 0; y < n; y++) { re[y * n + x] = rr[y]; im[y * n + x] = ri[y]; } }
+  }
+  const lim = Math.tan(KEEP * Math.PI / 180);
+  function applyWedge(img) {
+    const re = Float64Array.from(img), im = new Float64Array(N * N);
+    fft2(re, im, N, false);
+    for (let y = 0; y < N; y++) for (let x = 0; x < N; x++) {
+      const kx = x < N / 2 ? x : x - N, ky = y < N / 2 ? y : y - N;
+      if ((kx || ky) && Math.abs(ky) > lim * Math.abs(kx)) { re[y * N + x] = 0; im[y * N + x] = 0; }
+    }
+    fft2(re, im, N, true);
+    return Float32Array.from(re);
+  }
+  function rotate(src, n, ang) {
+    const out = new Float32Array(n * n), c = Math.cos(ang), s = Math.sin(ang), h = (n - 1) / 2;
+    for (let y = 0; y < n; y++) for (let x = 0; x < n; x++) {
+      const dx = x - h, dy = y - h, sx = c * dx + s * dy + h, sy = -s * dx + c * dy + h;
+      const x0 = Math.floor(sx), y0 = Math.floor(sy);
+      if (x0 < 0 || y0 < 0 || x0 >= n - 1 || y0 >= n - 1) continue;
+      const fx = sx - x0, fy = sy - y0, i = y0 * n + x0;
+      out[y * n + x] = src[i] * (1 - fx) * (1 - fy) + src[i + 1] * fx * (1 - fy) + src[i + n] * (1 - fx) * fy + src[i + n + 1] * fx * fy;
+    }
+    return out;
+  }
+  function shrink(img) {
+    const o = new Float32Array(M * M);
+    for (let y = 0; y < M; y++) for (let x = 0; x < M; x++) {
+      let s = 0, w = 0;
+      for (let dy = -1; dy <= 2; dy++) for (let dx = -1; dx <= 2; dx++) {
+        const X = 2 * x + dx, Y = 2 * y + dy; if (X < 0 || Y < 0 || X >= N || Y >= N) continue;
+        const k = (dx === 0 || dx === 1 ? 2 : 1) * (dy === 0 || dy === 1 ? 2 : 1); s += img[Y * N + X] * k; w += k; }
+      o[y * M + x] = s / w; }
+    return o;
+  }
+
+  // --- the molecule: two domains and a linker, as a sum of Gaussian beads ---
+  const base = (function () {
+    const beads = [];
+    const add = (cx, cy, n, sp) => { for (let i = 0; i < n; i++) beads.push([cx + gauss() * sp, cy + gauss() * sp, 2.2 + rand() * 1.2]); };
+    add(-7, -5, 9, 3.4); add(8, 6, 6, 2.6); add(-8, 9, 3, 1.2);
+    for (let t = 0; t <= 1; t += 0.2) beads.push([-7 + 15 * t, -5 + 11 * t, 1.8]);
+    const img = new Float32Array(N * N);
+    for (const [bx, by, r] of beads) { const px = N / 2 + bx, py = N / 2 + by, inv = 1 / (2 * r * r);
+      for (let y = 0; y < N; y++) for (let x = 0; x < N; x++) { const dx = x - px, dy = y - py; img[y * N + x] += Math.exp(-(dx * dx + dy * dy) * inv); } }
+    let m = 0; for (const v of img) m = Math.max(m, v); for (let i = 0; i < img.length; i++) img[i] /= m;
+    return img;
+  })();
+
+  // --- Fourier-space bookkeeping for the wedge-aware score ---
+  const KX = new Float32Array(M * M), KY = new Float32Array(M * M), KR = new Float32Array(M * M);
+  for (let y = 0; y < M; y++) for (let x = 0; x < M; x++) {
+    const kx = x < M / 2 ? x : x - M, ky = y < M / 2 ? y : y - M;
+    KX[y * M + x] = kx; KY[y * M + x] = ky; KR[y * M + x] = Math.hypot(kx, ky); }
+  let kmax = M * 0.1;
+  function wmask(b) {
+    const m = new Uint8Array(M * M), c = Math.cos(b), s = Math.sin(b);
+    for (let i = 0; i < M * M; i++) {
+      if (KR[i] > kmax || KR[i] === 0) continue;
+      const kx = c * KX[i] - s * KY[i], ky = s * KX[i] + c * KY[i];
+      m[i] = Math.abs(ky) <= lim * Math.abs(kx) ? 1 : 0; }
+    return m;
+  }
+  function spec(small, b) {
+    const re = Float64Array.from(rotate(small, M, -b)), im = new Float64Array(M * M);
+    fft2(re, im, M, false);
+    return { re, im, m: wmask(b) };
+  }
+  function score(S, Ar, Ai, Aw) {
+    let ab = 0, aa = 0, bb = 0;
+    for (let k = 0; k < M * M; k++) { if (!S.m[k] || !Aw[k]) continue;
+      ab += S.re[k] * Ar[k] + S.im[k] * Ai[k]; aa += S.re[k] * S.re[k] + S.im[k] * S.im[k]; bb += Ar[k] * Ar[k] + Ai[k] * Ai[k]; }
+    return ab / Math.sqrt(aa * bb + 1e-12);
+  }
+
+  // --- state ---
+  let obs = [], small = [], truth = [], b = [], scores = [], errs = [], iter = 0, running = false;
+  function makeParticles(s) {
+    seed = s;
+    obs = []; small = []; truth = [];
+    for (let i = 0; i < P; i++) {
+      truth.push((rand() * 2 - 1) * SPREAD);
+      const w = applyWedge(rotate(base, N, truth[i]));
+      const o = w.map(x => x + 0.35 * gauss());
+      obs.push(o); small.push(shrink(o));
+    }
+    b = new Array(P).fill(0); scores = []; iter = 0; errs = [angleSpread()];
+  }
+  function step() {
+    kmax = M * (0.1 + 0.2 * Math.min(1, iter / 90));
+    const specs = b.map((x, i) => spec(small[i], x));
+    const sr = new Float64Array(M * M), si = new Float64Array(M * M), sw = new Float64Array(M * M);
+    specs.forEach(S => { for (let k = 0; k < M * M; k++) if (S.m[k]) { sr[k] += S.re[k]; si[k] += S.im[k]; sw[k]++; } });
+    let tot = 0; const nb = b.slice(), d = 0.03;
+    const Ar = new Float64Array(M * M), Ai = new Float64Array(M * M), Aw = new Uint8Array(M * M);
+    for (let i = 0; i < P; i++) {
+      const S = specs[i];
+      for (let k = 0; k < M * M; k++) {
+        const w = sw[k] - S.m[k];
+        if (w > 0) { Ar[k] = (sr[k] - (S.m[k] ? S.re[k] : 0)) / w; Ai[k] = (si[k] - (S.m[k] ? S.im[k] : 0)) / w; Aw[k] = 1; }
+        else { Ar[k] = 0; Ai[k] = 0; Aw[k] = 0; }
+      }
+      tot += score(S, Ar, Ai, Aw);
+      const g = (score(spec(small[i], b[i] + d), Ar, Ai, Aw) - score(spec(small[i], b[i] - d), Ar, Ai, Aw)) / (2 * d);
+      nb[i] = b[i] + Math.max(-0.06, Math.min(0.06, g * 0.5));
+    }
+    b = nb; iter++;
+    scores.push(tot / P); errs.push(angleSpread());
+  }
+
+  // --- drawing ---
+  const grid = document.getElementById('particles');
+  const pc = [];
+  for (let i = 0; i < P; i++) { const c = document.createElement('canvas'); c.width = N; c.height = N; grid.appendChild(c); pc.push(c.getContext('2d')); }
+  const avgC = document.getElementById('avg'), actx = avgC.getContext('2d');
+  const coverC = document.getElementById('cover'), cctx = coverC.getContext('2d');
+  const scoreC = document.getElementById('score'), sctx = scoreC.getContext('2d');
+  const iterEl = document.getElementById('iter'), scoreVal = document.getElementById('scoreval');
+  let tok = {};
+  function readTokens() {
+    const cs = getComputedStyle(document.documentElement);
+    ['accent', 'warm', 'muted', 'rule', 'panel', 'ink'].forEach(k => tok[k] = cs.getPropertyValue('--' + k).trim());
+  }
+  // colormap for the average: deep navy -> cobalt -> amber -> cream
+  const stops = [[34, 34, 59], [74, 78, 105], [154, 140, 152], [201, 173, 167], [242, 233, 228]];
+  function cmap(t) {
+    t = Math.max(0, Math.min(1, t)) * (stops.length - 1);
+    const i = Math.min(stops.length - 2, Math.floor(t)), f = t - i, a = stops[i], z = stops[i + 1];
+    return [a[0] + (z[0] - a[0]) * f, a[1] + (z[1] - a[1]) * f, a[2] + (z[2] - a[2]) * f];
+  }
+  const tmp = document.createElement('canvas'); tmp.width = N; tmp.height = N; const tctx = tmp.getContext('2d');
+
+  function drawParticles(aligned) {
+    for (let i = 0; i < P; i++) {
+      const img = aligned[i], data = pc[i].createImageData(N, N), d = data.data;
+      for (let k = 0; k < N * N; k++) {
+        const g = Math.max(0, Math.min(255, 165 - img[k] * 130));
+        d[4 * k] = g; d[4 * k + 1] = g + 1; d[4 * k + 2] = g + 4; d[4 * k + 3] = 255;
+      }
+      pc[i].putImageData(data, 0, 0);
+    }
+  }
+  function drawAverage(aligned) {
+    const avg = new Float32Array(N * N);
+    aligned.forEach(a => { for (let k = 0; k < N * N; k++) avg[k] += a[k] / P; });
+    const sm = new Float32Array(N * N);
+    for (let y = 1; y < N - 1; y++) for (let x = 1; x < N - 1; x++) {
+      let s = 0; for (let dy = -1; dy <= 1; dy++) for (let dx = -1; dx <= 1; dx++) s += avg[(y + dy) * N + x + dx] * (dx ? 1 : 2) * (dy ? 1 : 2);
+      sm[y * N + x] = s / 16; }
+    avg.set(sm);
+    const inside = [];
+    for (let y = 0; y < N; y++) for (let x = 0; x < N; x++) if (Math.hypot(x - 31.5, y - 31.5) < 29) inside.push(avg[y * N + x]);
+    inside.sort((p, q) => p - q);
+    const lo = inside[Math.floor(inside.length * 0.55)], hi = inside[Math.floor(inside.length * 0.995)];
+    const data = tctx.createImageData(N, N), d = data.data;
+    for (let y = 0; y < N; y++) for (let x = 0; x < N; x++) {
+      const k = y * N + x, fade = Math.max(0, Math.min(1, (31 - Math.hypot(x - 31.5, y - 31.5)) / 3));
+      const [r, g, bl] = cmap(((avg[k] - lo) / (hi - lo + 1e-9)) * fade);
+      d[4 * k] = r; d[4 * k + 1] = g; d[4 * k + 2] = bl; d[4 * k + 3] = 255;
+    }
+    tctx.putImageData(data, 0, 0);
+    actx.imageSmoothingEnabled = true;
+    actx.drawImage(tmp, 0, 0, avgC.width, avgC.height);
+  }
+  function drawCoverage() {
+    const W = coverC.width, c = W / 2, r = W / 2 - 6, half = KEEP * Math.PI / 180;
+    cctx.clearRect(0, 0, W, W);
+    cctx.fillStyle = tok.rule; cctx.beginPath(); cctx.arc(c, c, r, 0, 2 * Math.PI); cctx.fill();
+    cctx.globalAlpha = 0.16; cctx.fillStyle = tok.accent;
+    for (let i = 0; i < P; i++) {
+      const rot = -b[i];
+      for (const base0 of [0, Math.PI]) {
+        cctx.beginPath(); cctx.moveTo(c, c);
+        cctx.arc(c, c, r, base0 + rot - half, base0 + rot + half); cctx.closePath(); cctx.fill();
+      }
+    }
+    cctx.globalAlpha = 1;
+  }
+  function drawScore() {
+    const dpr = Math.min(2, devicePixelRatio || 1), w = scoreC.clientWidth, h = scoreC.clientHeight;
+    if (scoreC.width !== Math.round(w * dpr)) { scoreC.width = Math.round(w * dpr); scoreC.height = Math.round(h * dpr); }
+    sctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    sctx.clearRect(0, 0, w, h);
+    const pad = { l: 4, r: 4, t: 8, b: 16 }, total = 150;
+    const y0 = 0, y1 = Math.max(10, Math.ceil((errs[0] || 30) / 10) * 10);
+    const X = i => pad.l + (w - pad.l - pad.r) * (i / (total - 1));
+    const Y = v => pad.t + (h - pad.t - pad.b) * (1 - (Math.max(y0, Math.min(y1, v)) - y0) / (y1 - y0));
+    sctx.strokeStyle = tok.rule; sctx.lineWidth = 1;
+    [0, y1 / 2, y1].forEach(v => { sctx.beginPath(); sctx.moveTo(pad.l, Y(v)); sctx.lineTo(w - pad.r, Y(v)); sctx.stroke(); });
+    sctx.fillStyle = tok.muted; sctx.font = '10px "JetBrains Mono", monospace';
+    sctx.textAlign = 'left'; sctx.fillText('0', pad.l, h - 3);
+    sctx.textAlign = 'right'; sctx.fillText(total + ' iterations', w - pad.r, h - 3);
+    sctx.textAlign = 'right'; sctx.fillText(y1 + '°', w - pad.r, pad.t + 9);
+    const scores = errs; if (!scores.length) return;
+    sctx.beginPath();
+    scores.forEach((v, i) => i ? sctx.lineTo(X(i), Y(v)) : sctx.moveTo(X(i), Y(v)));
+    sctx.lineTo(X(scores.length - 1), Y(y0)); sctx.lineTo(X(0), Y(y0)); sctx.closePath();
+    sctx.globalAlpha = 0.14; sctx.fillStyle = tok.warm; sctx.fill(); sctx.globalAlpha = 1;
+    sctx.beginPath();
+    scores.forEach((v, i) => i ? sctx.lineTo(X(i), Y(v)) : sctx.moveTo(X(i), Y(v)));
+    sctx.strokeStyle = tok.warm; sctx.lineWidth = 2; sctx.stroke();
+    const li = scores.length - 1;
+    sctx.fillStyle = tok.warm; sctx.beginPath(); sctx.arc(X(li), Y(scores[li]), 3.5, 0, 2 * Math.PI); sctx.fill();
+  }
+  function angleSpread() {
+    const off = b.map((x, i) => x - truth[i]), mean = off.reduce((a, c) => a + c, 0) / P;
+    return Math.sqrt(off.reduce((a, c) => a + (c - mean) ** 2, 0) / P) * 180 / Math.PI;
+  }
+  function render() {
+    const aligned = obs.map((o, i) => rotate(o, N, -b[i]));
+    drawParticles(aligned); drawAverage(aligned); drawCoverage(); drawScore();
+    iterEl.textContent = 'iteration ' + iter;
+    scoreVal.textContent = '±' + Math.round(angleSpread()) + '°';
+  }
+
+  const runBtn = document.getElementById('run'), shuffleBtn = document.getElementById('shuffle');
+  function align() {
+    if (running) return;
+    if (iter >= 150) { b = new Array(P).fill(0); scores = []; iter = 0; errs = [angleSpread()]; }
+    running = true; runBtn.disabled = true; runBtn.textContent = 'Aligning…';
+    const finish = () => { running = false; runBtn.disabled = false; runBtn.textContent = 'Align again'; render(); };
+    if (reduced) { while (iter < 150) step(); finish(); return; }
+    (function frame() {
+      for (let k = 0; k < 2 && iter < 150; k++) step();
+      render();
+      if (iter < 150) requestAnimationFrame(frame); else finish();
+    })();
+  }
+  runBtn.addEventListener('click', align);
+  let batch = 5000;
+  shuffleBtn.addEventListener('click', () => {
+    if (running) return;
+    batch = Math.floor(Math.random() * 2e9) + 1;
+    makeParticles(batch); runBtn.textContent = 'Align'; render();
+  });
+  const rerender = () => { readTokens(); render(); };
+  document.addEventListener('themechange', rerender);
+  addEventListener('resize', drawScore);
+
+  readTokens();
+  makeParticles(batch);
+  render();
+  // run once on its own shortly after load, so the first visit shows the idea
+  setTimeout(align, reduced ? 0 : 900);
+})();
+</script>
 
 </body>
 </html>
